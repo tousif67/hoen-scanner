@@ -2,6 +2,7 @@ package com.skyscanner;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.skyscanner.search.SearchResource;
 import com.skyscanner.search.SearchResult;
 import io.dropwizard.core.Application;
 import io.dropwizard.core.setup.Bootstrap;
@@ -52,6 +53,8 @@ public class HoenScannerApplication extends Application<HoenScannerConfiguration
         List<SearchResult> searchResults = new ArrayList<>();
         searchResults.addAll(carResults);
         searchResults.addAll(hotelResults);
+        final SearchResource resource= new SearchResource(searchResults);
+        environment.jersey().register(resource);
     }
     /**
      * Loads search results from JSON files specified in the configuration
